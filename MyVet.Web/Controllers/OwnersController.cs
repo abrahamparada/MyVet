@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MyVet.Web.Data.Entities;
 
 namespace MyVet.Web.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class OwnersController : Controller
     {
         private readonly DataContext _context;
@@ -20,9 +22,11 @@ namespace MyVet.Web.Controllers
         }
 
         // GET: Owners
-        public async Task<IActionResult> Index()
+        public  IActionResult  Index()
         {
-            return View(await _context.Owners.ToListAsync());
+            return View(_context.Owners
+                          .Include(o => o.User)  // Inner Join Owner && User
+                          .Include(o => o.Pets));  // Inner Join Owner && Pets
         }
 
         // GET: Owners/Details/5
@@ -34,6 +38,11 @@ namespace MyVet.Web.Controllers
             }
 
             var owner = await _context.Owners
+                .Include(o => o.User)  // Inner Join Owner && User
+                .Include(o => o.Pets)  // Inner Join Owner && Pets
+                .ThenInclude(p => p.PetType) // Inner  && Inner
+                .Include(o => o.Pets)  // Inner Join Owner && Pets
+                .ThenInclude(p => p.Histories)// Inner  && Inner
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (owner == null)
             {
