@@ -18,14 +18,14 @@ namespace MyVet.Web.Data.Entities
         [Display(Name ="Date")]
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "The {0} is mandatory")]
-        [DisplayFormat(DataFormatString ="{0:yyyy/MM/dd}", ApplyFormatInEditMode =true)]
+      //  [DisplayFormat(DataFormatString ="{0:yyyy/MM/dd}", ApplyFormatInEditMode =true)]
         public DateTime Date{ get; set; }
-
+            
         [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters")]
         public string Remarks { get; set; }
 
         [Display(Name = "Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+      //  [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime DateLocal => Date.ToLocalTime();
 
         public ServiceType ServiceType {get; set;}

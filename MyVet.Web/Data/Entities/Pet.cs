@@ -11,7 +11,12 @@ namespace MyVet.Web.Data.Entities
 
         public int Id { get; set; }
 
-        [Display(Name = "Service Type")]
+        /*[Display(Name = "Service Type")]
+        [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters")]
+        [Required(ErrorMessage = "The {0} is mandatory")]
+        public string Name { get; set; }*/
+
+        [Display(Name = "Name")]
         [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters")]
         [Required(ErrorMessage = "The {0} is mandatory")]
         public string Name { get; set; }
@@ -24,9 +29,9 @@ namespace MyVet.Web.Data.Entities
         public string Race { get; set; }
 
         [Display(Name = "Born")]
-        [DataType(DataType.DateTime)]
+      
         [Required(ErrorMessage = "The {0} is mandatory")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd H:mm tt}", ApplyFormatInEditMode = true)]
+      //  [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd H:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime Born { get; set; }
 
         [MaxLength(200, ErrorMessage = "The {0} field can not have more than {1} characters")]
@@ -39,7 +44,7 @@ namespace MyVet.Web.Data.Entities
             : $"https://TDB.azurewebsites.net{ImageUrl.Substring(1)}";
 
         [Display(Name = "Born")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd H:mm tt}", ApplyFormatInEditMode = true)]
+       // [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd H:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime BornLocal => Born.ToLocalTime();
 
         public PetType PetType { get; set; }
